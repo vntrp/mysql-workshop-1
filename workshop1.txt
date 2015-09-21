@@ -1,0 +1,214 @@
+mysql> CREATE DATABASE decodemtl_test;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| World              |
+| c9                 |
+| decodemtl_test     |
+| mysql              |
+| performance_schema |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE DATABASE decodemtl_addressbook;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DROP DATABASE decodemtl_test;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW DATABASES;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| World                 |
+| c9                    |
+| decodemtl_addressbook |
+| mysql                 |
+| performance_schema    |
++-----------------------+
+6 rows in set (0.00 sec)
+
+mysql> USE decodemtl_addressbook;
+Database changed
+mysql> CREATE TABLE Account(
+    -> id int NOT NULL AUTO_INCREMENT,
+    -> PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DESCRIBE Account;
++-------+---------+------+-----+---------+----------------+
+| Field | Type    | Null | Key | Default | Extra          |
++-------+---------+------+-----+---------+----------------+
+| id    | int(11) | NO   | PRI | NULL    | auto_increment |
++-------+---------+------+-----+---------+----------------+
+1 row in set (0.01 sec)
+
+mysql> CREATE TABLE AddressBook( id int NOT NULL AUTO_INCREMENT, PRIMARY KEY (id) );                                                                           
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE Entry( id int NOT NULL AUTO_INCREMENT, PRIMARY KEY (id) );                                                                                 
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE Test( id int NOT NULL AUTO_INCREMENT, PRIMARY KEY (id) );                                                                                  
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DROP TABLE Test;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW DATABASES;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| World                 |
+| c9                    |
+| decodemtl_addressbook |
+| mysql                 |
+| performance_schema    |
++-----------------------+
+6 rows in set (0.00 sec)
+
+mysql> USE decodemtl_addressbook;
+Database changed
+mysql> SHOW TABLES;
++---------------------------------+
+| Tables_in_decodemtl_addressbook |
++---------------------------------+
+| Account                         |
+| AddressBook                     |
+| Entry                           |
++---------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> USE AddressBook;
+ERROR 1049 (42000): Unknown database 'AddressBook'
+mysql> ALTER TABLE Account ADD COLUMN email VARCHAR;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> ALTER TABLE Account ADD COLUMN email VARCHAR(255);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Account;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email | varchar(255) | YES  |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Account ADD COLUMN email VARCHAR(40);
+ERROR 1060 (42S21): Duplicate column name 'email'
+mysql> ALTER TABLE Account ADD COLUMN password VARCHAR(40);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Account ADD COLUMN createdOn DATETIME;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Account ADD COLUMN modifiedOn DATETIME;                                                                                                     
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Account;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email      | varchar(255) | YES  |     | NULL    |                |
+| password   | varchar(40)  | YES  |     | NULL    |                |
+| createdOn  | datetime     | YES  |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> ALTER TABLE AddressBook ADD COLUMN accountId INT;                                                                                     
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE AddressBook;
++-----------+---------+------+-----+---------+----------------+
+| Field     | Type    | Null | Key | Default | Extra          |
++-----------+---------+------+-----+---------+----------------+
+| id        | int(11) | NO   | PRI | NULL    | auto_increment |
+| accountId | int(11) | YES  |     | NULL    |                |
++-----------+---------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE AddressBook ADD COLUMN name VARCHAR(255);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE AddressBook ADD COLUMN createdOn DATETIME;                                                                                                  
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE AddressBook ADD COLUMN modifiedOn DATETIME;                                                                                                 
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry ADD COLUMN AddressBookId INT;                                                                                       
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry ADD COLUMN firstName VARCHAR(255);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry ADD COLUMN lastName VARCHAR(255);                                                                                                     
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry ADD COLUMN birthday DATETIME;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry ADD COLUMN type ENUM('home', 'work', 'other');                                                                                    
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Entry;
++---------------+-----------------------------+------+-----+---------+----------------+
+| Field         | Type                        | Null | Key | Default | Extra          |
++---------------+-----------------------------+------+-----+---------+----------------+
+| id            | int(11)                     | NO   | PRI | NULL    | auto_increment |
+| AddressBookId | int(11)                     | YES  |     | NULL    |                |
+| firstName     | varchar(255)                | YES  |     | NULL    |                |
+| lastName      | varchar(255)                | YES  |     | NULL    |                |
+| birthday      | datetime                    | YES  |     | NULL    |                |
+| type          | enum('home','work','other') | YES  |     | NULL    |                |
++---------------+-----------------------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Entry ADD COLUMN subtype ENUM('phone', 'address','email');                                                                             
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry ADD COLUMN contentLineOne VARCHAR(255);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry ADD COLUMN contentLineTwo VARCHAR(255);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry ADD COLUMN contentLineThree VARCHAR(255);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry ADD COLUMN contentLineFour VARCHAR(255);                                                                                         
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Entry ADD COLUMN contentLineFive VARCHAR(255);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
