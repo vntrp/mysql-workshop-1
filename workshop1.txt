@@ -346,4 +346,56 @@ mysql> DESCRIBE Room;
 +--------------+-------------+------+-----+---------+----------------+
 10 rows in set (0.00 sec)
 
-mysql> 
+mysql> CREATE TABLE Reservations(id int NOT NULL AUTO_INCREMENT, PRIMARY KEY (id));
+
+mysql> ALTER TABLE Reservations ADD COLUMN Room_id INT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Reservations ADD FOREIGN KEY (Room_id) REFERENCES Hotel.Room(id);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE Reservations;
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table        | Create Table                                                                                                                                                                                                                                                                          |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Reservations | CREATE TABLE `Reservations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Room_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Room_id` (`Room_id`),
+  CONSTRAINT `Reservations_ibfk_1` FOREIGN KEY (`Room_id`) REFERENCES `Room` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> DESCRIBE Reservations;
++---------+---------+------+-----+---------+----------------+
+| Field   | Type    | Null | Key | Default | Extra          |
++---------+---------+------+-----+---------+----------------+
+| id      | int(11) | NO   | PRI | NULL    | auto_increment |
+| Room_id | int(11) | YES  | MUL | NULL    |                |
++---------+---------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Reservations ADD COLUMN startDate DATETIME;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Reservations ADD COLUMN duration INT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Reservations;
++-----------+----------+------+-----+---------+----------------+
+| Field     | Type     | Null | Key | Default | Extra          |
++-----------+----------+------+-----+---------+----------------+
+| id        | int(11)  | NO   | PRI | NULL    | auto_increment |
+| Room_id   | int(11)  | YES  | MUL | NULL    |                |
+| startDate | datetime | YES  |     | NULL    |                |
+| duration  | int(11)  | YES  |     | NULL    |                |
++-----------+----------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql>  
