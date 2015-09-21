@@ -211,4 +211,55 @@ mysql> ALTER TABLE Entry ADD COLUMN contentLineFive VARCHAR(255);
 Query OK, 0 rows affected (0.01 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+// EXERCISE 9
+
+mysql> CREATE DATABASE Chickenz;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SHOW DATABASES;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| Chickenz              |
+| World                 |
+| c9                    |
+| decodemtl_addressbook |
+| mysql                 |
+| performance_schema    |
++-----------------------+
+7 rows in set (0.01 sec)
+
+mysql> USE Chickenz
+Database changed
+mysql> CREATE TABLE Barn(
+    -> id int NOT NULL AUTO_INCREMENT,
+    -> PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ALTER TABLE Barn ADD COLUMN type ENUM('rooster', 'hen','chick');                                                                                        
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Barn ADD COLUMN birthday DATETIME;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Barn ADD COLUMN killday DATETIME;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Barn;
+
++----------+-------------------------------+------+-----+---------+----------------+
+| Field    | Type                          | Null | Key | Default | Extra          |
++----------+-------------------------------+------+-----+---------+----------------+
+| id       | int(11)                       | NO   | PRI | NULL    | auto_increment |
+| type     | enum('rooster','hen','chick') | YES  |     | NULL    |                |
+| birthday | datetime                      | YES  |     | NULL    |                |
+| killday  | datetime                      | YES  |     | NULL    |                |
++----------+-------------------------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
 mysql> 
